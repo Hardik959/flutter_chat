@@ -1,6 +1,7 @@
-// ignore_for_file: file_names, prefer_const_constructors
+// ignore_for_file: file_names, prefer_const_constructors, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
+import 'package:flutter_chat/Views/SignUp.dart';
 import 'package:flutter_chat/widgets/widgets.dart';
 
 class SignIn extends StatefulWidget {
@@ -86,8 +87,21 @@ class _SignInState extends State<SignIn> {
                   width: 300,
                   height: 50.3,
                   child: ElevatedButton(
-                    child: Text("Sign In with Google".toUpperCase(),
-                        style: TextStyle(fontSize: 14, color: Colors.black)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          "assets/images/googlesign.png",
+                          height: 40,
+                        ),
+                        SizedBox(
+                          width: 4,
+                        ),
+                        Text("Sign In with Google".toUpperCase(),
+                            style:
+                                TextStyle(fontSize: 14, color: Colors.black)),
+                      ],
+                    ),
                     style: ButtonStyle(
                         elevation: MaterialStateProperty.all<double>(20),
                         shadowColor:
@@ -110,7 +124,12 @@ class _SignInState extends State<SignIn> {
                   children: [
                     Text("Don't have an account?"),
                     TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => const SignUp()),
+  );
+                        },
                         child: Text(
                           "Register Now",
                           style: TextStyle(color: Colors.grey[700]),

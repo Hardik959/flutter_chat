@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat/Views/SignIn.dart';
+import 'package:flutter_chat/Views/SignUp.dart';
 
 void main() {
   runApp(const MyApp());
