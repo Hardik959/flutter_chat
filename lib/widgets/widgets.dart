@@ -6,7 +6,19 @@ Widget appbarmain(BuildContext context) {
   return AppBar(
     centerTitle: true,
     backgroundColor: Colors.black87,
-    title: Text("Connect",
-    style: TextStyle(color: Colors.grey),),
+    title: Text(
+      "Connect",
+      style: TextStyle(color: Colors.grey),
+    ),
+  );
+}
+
+InputDecoration inputtextfield(String hinttext) {
+  return InputDecoration(
+    focusedBorder: UnderlineInputBorder(
+      borderSide: BorderSide(color: Colors.black),
+    ),
+    hintText: hinttext,
+    hintStyle: TextStyle(),
   );
 }

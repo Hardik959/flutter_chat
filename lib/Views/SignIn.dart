@@ -37,10 +37,7 @@ class _SignInState extends State<SignIn> {
                   height: 30,
                 ),
                 TextField(
-                  decoration: InputDecoration(
-                    hintText: "Email",
-                    hintStyle: TextStyle(),
-                  ),
+                  decoration: inputtextfield("Email"),
                   onTap: (() {}),
                 ),
                 SizedBox(
@@ -48,13 +45,78 @@ class _SignInState extends State<SignIn> {
                 ),
                 TextField(
                   obscureText: true,
-                  decoration: InputDecoration(
-                    
-                    hintText: "Password",
-                    hintStyle: TextStyle(),
-                  ),
+                  decoration: inputtextfield("Password"),
                   onTap: (() {}),
                 ),
+                Container(
+                    alignment: Alignment.centerRight,
+                    child: TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          "Forgot Password?",
+                          style: TextStyle(color: Colors.grey[700]),
+                        ))),
+                SizedBox(
+                  height: 5,
+                ),
+                // ignore: sized_box_for_whitespace
+                Container(
+                  width: 300,
+                  height: 50,
+                  child: ElevatedButton(
+                    child: Text("Sign In".toUpperCase(),
+                        style: TextStyle(fontSize: 14)),
+                    style: ButtonStyle(
+                        foregroundColor:
+                            MaterialStateProperty.all<Color>(Colors.white),
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.black),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                    side: BorderSide(color: Colors.black)))),
+                    onPressed: () {},
+                  ),
+                ),
+                SizedBox(
+                  height: 7,
+                ),
+                Container(
+                  width: 300,
+                  height: 50.3,
+                  child: ElevatedButton(
+                    child: Text("Sign In with Google".toUpperCase(),
+                        style: TextStyle(fontSize: 14, color: Colors.black)),
+                    style: ButtonStyle(
+                        elevation: MaterialStateProperty.all<double>(20),
+                        shadowColor:
+                            MaterialStateProperty.all<Color>(Colors.black),
+                        foregroundColor:
+                            MaterialStateProperty.all<Color>(Colors.white),
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.white),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                    side: BorderSide(color: Colors.white)))),
+                    onPressed: () {},
+                  ),
+                ),
+                // ignore: prefer_const_literals_to_create_immutables
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Don't have an account?"),
+                    TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          "Register Now",
+                          style: TextStyle(color: Colors.grey[700]),
+                        ))
+                  ],
+                )
               ],
             )),
       ),
