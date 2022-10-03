@@ -1,27 +1,28 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_chat/Views/SignIn.dart';
 import 'package:flutter_chat/Views/SignUp.dart';
 
 class Authenticate extends StatefulWidget {
-  const Authenticate({Key? key}) : super(key: key);
-
   @override
-  State<Authenticate> createState() => _AuthenticateState();
+  _AuthenticateState createState() => _AuthenticateState();
 }
 
 class _AuthenticateState extends State<Authenticate> {
-  bool showsignin = true;
+  bool showSignIn = true;
+
   void toggleView() {
     setState(() {
-      showsignin = !showsignin;
+      showSignIn = !showSignIn;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (showsignin) {
+    if (showSignIn) {
       return SignIn(toggleView);
-    } else
+    } else {
       return SignUp(toggleView);
+    }
   }
 }

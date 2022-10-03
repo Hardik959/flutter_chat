@@ -1,20 +1,23 @@
-// ignore_for_file: file_names, prefer_const_constructors, sized_box_for_whitespace, non_constant_identifier_names
+// ignore_for_file: file_names, prefer_const_constructors, sized_box_for_whitespace, non_constant_identifier_names, unnecessary_new
 
 import 'package:flutter/material.dart';
+import 'package:flutter_chat/Services/authenticator.dart';
 import 'package:flutter_chat/Views/SignUp.dart';
 import 'package:flutter_chat/widgets/widgets.dart';
 
 class SignIn extends StatefulWidget {
-  const SignIn(void Function() toggleView, {Key? key}) : super(key: key);
+  Function? toggle;
+  SignIn(this.toggle);
 
   @override
   State<SignIn> createState() => _SignInState();
 }
 
 class _SignInState extends State<SignIn> {
-    late final Function? toggle;
-  SignIn(toggle);
-  SignUp(toggle);
+  // AuthenticateState authenticate = new AuthenticateState();
+  // Function? toggle;
+  // SignIn(toggle);
+  // SignUp(toggle);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -128,11 +131,8 @@ class _SignInState extends State<SignIn> {
                     Text("Don't have an account?"),
                     TextButton(
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SignUp(toggle))
-                          );
+                          // authenticate.toggleView();
+                          widget.toggle!();
                         },
                         child: Text(
                           "Register Now",

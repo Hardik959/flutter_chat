@@ -3,20 +3,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat/Services/auth.dart';
 import 'package:flutter_chat/Views/ChatRoom.dart';
+import 'package:flutter_chat/Views/SignIn.dart';
 import 'package:flutter_chat/Views/SignUp.dart';
 import 'package:flutter_chat/widgets/widgets.dart';
 
 class SignUp extends StatefulWidget {
-  const SignUp(void Function() toggleView, {Key? key}) : super(key: key);
+  Function? toggle;
+  SignUp(this.toggle);
 
   @override
   State<SignUp> createState() => SignUpState();
 }
 
 class SignUpState extends State<SignUp> {
-  late final Function? toggle;
-  // SignUp(toggle);
-  SignIn(toggle);
   AuthMethods authMethods = new AuthMethods();
   bool isloading = false;
   final formkey = GlobalKey<FormState>();
@@ -197,11 +196,7 @@ class SignUpState extends State<SignUp> {
                           Text("Already have an account?"),
                           TextButton(
                               onPressed: () {
-                                Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SignIn(toggle))
-                          );
+                                widget.toggle!();
                               },
                               child: Text(
                                 "Sign In",
