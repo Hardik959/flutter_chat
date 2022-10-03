@@ -1,8 +1,18 @@
+// ignore_for_file: prefer_const_constructors, unused_import
+
 import 'package:flutter/material.dart';
+import 'package:flutter_chat/Services/authenticator.dart';
+import 'package:flutter_chat/Views/ChatRoom.dart';
 import 'package:flutter_chat/Views/SignIn.dart';
 import 'package:flutter_chat/Views/SignUp.dart';
+import 'package:firebase_core/firebase_core.dart';
+// import 'firebase_options.dart';
 
-void main() {
+void main() async{WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    // options: DefaultFirebaseOptions.currentPlatform,
+  );
+  Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -27,11 +37,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: SignIn()
+      home: Authenticate(),
     );
   }
 }
-
-
-
-

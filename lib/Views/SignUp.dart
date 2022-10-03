@@ -1,18 +1,22 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_new, empty_statements, avoid_unnecessary_containers, avoid_print
+// ignore_for_file: prefer_const_constructors, unnecessary_new, empty_statements, avoid_unnecessary_containers, avoid_print, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:flutter_chat/Services/auth.dart';
-import 'package:flutter_chat/Views/SignIn.dart';
+import 'package:flutter_chat/Views/ChatRoom.dart';
+import 'package:flutter_chat/Views/SignUp.dart';
 import 'package:flutter_chat/widgets/widgets.dart';
 
 class SignUp extends StatefulWidget {
-  const SignUp({Key? key}) : super(key: key);
+  const SignUp(void Function() toggleView, {Key? key}) : super(key: key);
 
   @override
-  State<SignUp> createState() => _SignUpState();
+  State<SignUp> createState() => SignUpState();
 }
 
-class _SignUpState extends State<SignUp> {
+class SignUpState extends State<SignUp> {
+  late final Function? toggle;
+  // SignUp(toggle);
+  SignIn(toggle);
   AuthMethods authMethods = new AuthMethods();
   bool isloading = false;
   final formkey = GlobalKey<FormState>();
@@ -24,7 +28,11 @@ class _SignUpState extends State<SignUp> {
       setState(() {
         isloading = true;
       });
-      authMethods.signUpWithEmailandPassword(email.text, password.text).then((value) => print("$value"));
+      authMethods
+          .signUpWithEmailandPassword(email.text, password.text)
+          .then((value) => print("{$value.userId}"));
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => Chatroom()));
     }
   }
 
@@ -189,7 +197,11 @@ class _SignUpState extends State<SignUp> {
                           Text("Already have an account?"),
                           TextButton(
                               onPressed: () {
-                                Navigator.pop(context);
+                                Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SignIn(toggle))
+                          );
                               },
                               child: Text(
                                 "Sign In",
@@ -202,4 +214,7 @@ class _SignUpState extends State<SignUp> {
             ),
     );
   }
+
+  @override
+  noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }

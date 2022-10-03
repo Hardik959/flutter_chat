@@ -1,17 +1,20 @@
-// ignore_for_file: file_names, prefer_const_constructors, sized_box_for_whitespace
+// ignore_for_file: file_names, prefer_const_constructors, sized_box_for_whitespace, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:flutter_chat/Views/SignUp.dart';
 import 'package:flutter_chat/widgets/widgets.dart';
 
 class SignIn extends StatefulWidget {
-  const SignIn({Key? key}) : super(key: key);
+  const SignIn(void Function() toggleView, {Key? key}) : super(key: key);
 
   @override
   State<SignIn> createState() => _SignInState();
 }
 
 class _SignInState extends State<SignIn> {
+    late final Function? toggle;
+  SignIn(toggle);
+  SignUp(toggle);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -126,9 +129,10 @@ class _SignInState extends State<SignIn> {
                     TextButton(
                         onPressed: () {
                           Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => const SignUp()),
-  );
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SignUp(toggle))
+                          );
                         },
                         child: Text(
                           "Register Now",
@@ -141,4 +145,7 @@ class _SignInState extends State<SignIn> {
       ),
     );
   }
+
+  @override
+  noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }
