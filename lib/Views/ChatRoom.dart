@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_chat/Services/auth.dart';
+import 'package:flutter_chat/Services/authenticator.dart';
 import 'package:flutter_chat/Views/SearchScreen.dart';
 
 class Chatroom extends StatefulWidget {
@@ -20,7 +21,9 @@ class _ChatroomState extends State<Chatroom> {
         actions: [
           IconButton(
               onPressed: () {
-                authMethods.signout();
+                AuthMethods().signout();
+                Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => Authenticate()));
               },
               icon: Icon(
                 Icons.logout_rounded,
