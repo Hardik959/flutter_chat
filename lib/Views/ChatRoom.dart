@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_chat/Services/auth.dart';
+import 'package:flutter_chat/Views/SearchScreen.dart';
 
 class Chatroom extends StatefulWidget {
   const Chatroom({Key? key}) : super(key: key);
@@ -35,6 +36,16 @@ class _ChatroomState extends State<Chatroom> {
         ),
       ),
       body: Container(color: Colors.white),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const Search()),
+          );
+        },
+        backgroundColor: Colors.black,
+        child: Icon(Icons.search),
+      ),
     );
   }
 }
