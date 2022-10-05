@@ -43,7 +43,7 @@ class _ChatroomState extends State<Chatroom> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const Search()),
+            MaterialPageRoute(builder: (context) => Search()),
           );
         },
         backgroundColor: Colors.black,
