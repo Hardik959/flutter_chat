@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat/Services/database.dart';
+import 'package:flutter_chat/widgets/widgets.dart';
 
 class Search extends StatefulWidget {
   @override
@@ -12,11 +13,13 @@ class Search extends StatefulWidget {
 class _SearchState extends State<Search> {
   DatabaseMethods databaseMethods = DatabaseMethods();
   TextEditingController searchEditingController = TextEditingController();
-  late QuerySnapshot searchResultSnapshot;
-  late List<QueryDocumentSnapshot> data;
+  late Map<String, dynamic> searchResultSnapshot;
+  // late List<QueryDocumentSnapshot> data;
 
   bool isLoading = false;
   bool haveUserSearched = false;
+  late String username;
+  late String email;
 
   initiateSearch() async {
     if (searchEditingController.text.isNotEmpty) {
@@ -27,7 +30,9 @@ class _SearchState extends State<Search> {
           .searchByName(searchEditingController.text)
           .then((snapshot) {
         searchResultSnapshot = snapshot;
-        data = snapshot.docs;
+        username = snapshot['Name'];
+        email = snapshot['Email'];
+        // data = snapshot.docs;
         print("$searchResultSnapshot");
         setState(() {
           isLoading = false;
@@ -46,15 +51,9 @@ class _SearchState extends State<Search> {
     return haveUserSearched
         ? ListView.builder(
             shrinkWrap: true,
-            itemCount: searchResultSnapshot.docs.length,
+            itemCount: searchResultSnapshot.length-1,
             itemBuilder: (context, index) {
-              return userTile(
-                Text(
-                  "Hi",
-                  style: TextStyle(color: Colors.black),
-                ).toString(),
-                data[index].toString(),
-              );
+              return userTile(username, email);
             })
         : Container();
   }
@@ -105,9 +104,8 @@ class _SearchState extends State<Search> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Test"),
-      ),
+      appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(50), child: appbarmain(context)),
       body: isLoading
           ? Container(
               child: Center(
