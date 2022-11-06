@@ -1,9 +1,12 @@
-// ignore_for_file: use_key_in_widget_constructors, avoid_print, prefer_const_constructors, avoid_unnecessary_containers
+// ignore_for_file: use_key_in_widget_constructors, avoid_print, prefer_const_constructors, avoid_unnecessary_containers, unused_import
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat/Services/constants.dart';
 import 'package:flutter_chat/Services/database.dart';
+import 'package:flutter_chat/Views/ConversationScreen.dart';
 import 'package:flutter_chat/widgets/widgets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Search extends StatefulWidget {
   @override
@@ -47,11 +50,35 @@ class _SearchState extends State<Search> {
     }
   }
 
+  createChatroomAndStartConversation(String userName) {
+    if (userName != Constants.myName) {
+      String chatRoomId = getChatRoomId(userName, Constants.myName);
+      List<String> users = [userName, Constants.myName];
+      Map<String, dynamic> chatRoomMAp = {
+        "users": users,
+        "chatroomId": chatRoomId,
+      };
+
+      databaseMethods.createChatRoom(chatRoomId, chatRoomMAp);
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => ConversationScreen()));
+    } else {
+      print("You cannot send message");
+    }
+  }
+
+  // sendMeassage(String userName) {
+  //   List<String> users = [
+  //     userName,
+  //   ];
+  //   databaseMethods.createChatRoom();
+  // }
+
   Widget userList() {
     return haveUserSearched
         ? ListView.builder(
             shrinkWrap: true,
-            itemCount: searchResultSnapshot.length-1,
+            itemCount: searchResultSnapshot.length - 1,
             itemBuilder: (context, index) {
               return userTile(username, email);
             })
@@ -79,6 +106,7 @@ class _SearchState extends State<Search> {
           Spacer(),
           GestureDetector(
             onTap: () {
+              createChatroomAndStartConversation(username);
               // sendMessage(userName);
             },
             child: Container(
@@ -164,5 +192,13 @@ class _SearchState extends State<Search> {
               ),
             ),
     );
+  }
+}
+
+getChatRoomId(String a, String b) {
+  if (a.substring(0, 1).codeUnitAt(0) > b.substring(0, 1).codeUnitAt(0)) {
+    return "$b\_$a";
+  } else {
+    return "$a\_$b";
   }
 }

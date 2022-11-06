@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_chat/Services/authenticator.dart';
+import 'package:flutter_chat/Services/helperfunctions.dart';
 import 'package:flutter_chat/Views/ChatRoom.dart';
 import 'package:flutter_chat/Views/SearchScreen.dart';
 import 'package:flutter_chat/Views/SignIn.dart';
@@ -9,16 +10,38 @@ import 'package:flutter_chat/Views/SignUp.dart';
 import 'package:firebase_core/firebase_core.dart';
 // import 'firebase_options.dart';
 
-void main() async{WidgetsFlutterBinding.ensureInitialized();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    // options: DefaultFirebaseOptions.currentPlatform,
-  );
+      // options: DefaultFirebaseOptions.currentPlatform,
+      );
   Firebase.initializeApp();
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+   bool userIsLoggedIn = false;
+  @override
+  void initState() {
+    getLoggedInState();
+    // TODO: implement initState
+    super.initState();
+  }
+
+  getLoggedInState() async {
+    await HelperFunctions.getUserLoggedInSharedPreference().then((value) {
+      setState(() {
+        userIsLoggedIn = value!;
+      });
+    });
+  }
 
   // This widget is the root of your application.
   @override
@@ -38,7 +61,25 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: Authenticate(),
+      home: userIsLoggedIn 
+          ? 
+              Chatroom()
+              : Authenticate(),
+          
     );
+  }
+}
+
+class Blank extends StatefulWidget {
+  const Blank({Key? key}) : super(key: key);
+
+  @override
+  State<Blank> createState() => _BlankState();
+}
+
+class _BlankState extends State<Blank> {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }

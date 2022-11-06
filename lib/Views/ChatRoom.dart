@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat/Services/auth.dart';
 import 'package:flutter_chat/Services/authenticator.dart';
+import 'package:flutter_chat/Services/constants.dart';
+import 'package:flutter_chat/Services/helperfunctions.dart';
 import 'package:flutter_chat/Views/SearchScreen.dart';
 
 class Chatroom extends StatefulWidget {
@@ -15,6 +17,17 @@ class Chatroom extends StatefulWidget {
 class _ChatroomState extends State<Chatroom> {
   AuthMethods authMethods = new AuthMethods();
   @override
+  void initState() {
+    getUserInfo();
+    // TODO: implement initState
+    super.initState();
+  }
+
+  getUserInfo() async {
+    Constants.myName = (await HelperFunctions.getUserNameSharedPreference())!;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -23,7 +36,7 @@ class _ChatroomState extends State<Chatroom> {
               onPressed: () {
                 AuthMethods().signout();
                 Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => Authenticate()));
+                    MaterialPageRoute(builder: (context) => Authenticate()));
               },
               icon: Icon(
                 Icons.logout_rounded,

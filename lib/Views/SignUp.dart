@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat/Services/auth.dart';
 import 'package:flutter_chat/Services/database.dart';
+import 'package:flutter_chat/Services/helperfunctions.dart';
 import 'package:flutter_chat/Views/ChatRoom.dart';
 import 'package:flutter_chat/Views/SignIn.dart';
 import 'package:flutter_chat/Views/SignUp.dart';
@@ -32,11 +33,14 @@ class SignUpState extends State<SignUp> {
       authMethods
           .signUpWithEmailandPassword(email.text, password.text)
           .then((value) => print("{$value.userId}"));
-          Map<String,String>usermap={
-            "Name":userName.text,
-            "Email":email.text,
-          };
+      Map<String, String> usermap = {
+        "Name": userName.text,
+        "Email": email.text,
+      };
+      HelperFunctions.saveUserEmailSharedPreference(email.text);
+      HelperFunctions.saveUserNameSharedPreference(userName.text);
       databaseMethods.uploadUserInfo(usermap);
+      HelperFunctions.saveUserLoggedInSharedPreference(true);
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => Chatroom()));
     }
