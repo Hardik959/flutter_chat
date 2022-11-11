@@ -2,9 +2,9 @@
     package="com.example.flutter_chat">
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
    <application
-        android:label="flutter_chat"
+        android:label="Connect"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/connect">
         <activity
             android:name=".MainActivity"
             android:exported="true"

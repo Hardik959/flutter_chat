@@ -37,6 +37,7 @@ dependencies:
   firebase_auth: ^3.4.2
   cloud_firestore: ^3.5.0
   shared_preferences: ^2.0.15
+  flutter_launcher_icons: ^0.10.0
 
 dev_dependencies:
   flutter_test:

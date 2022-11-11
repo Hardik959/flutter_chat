@@ -24,6 +24,7 @@ class _SignInState extends State<SignIn> {
   TextEditingController email = new TextEditingController();
   TextEditingController password = new TextEditingController();
   late Map<String, dynamic> searchResultSnapshot;
+
   bool isLoading = false;
   signIn() async {
     if (formKey.currentState!.validate()) {
@@ -43,6 +44,24 @@ class _SignInState extends State<SignIn> {
           HelperFunctions.saveUserLoggedInSharedPreference(true);
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => Chatroom()));
+        } else {
+          final snackBar = SnackBar(
+            backgroundColor: Colors.amberAccent,
+            content: const Text(
+              'Invalid Email Address!',
+              style: TextStyle(color: Colors.black),
+            ),
+            // action: SnackBarAction(
+            //   label: 'Undo',
+            //   onPressed: () {
+            //     // Some code to undo the change.
+            //   },
+            // ),
+          );
+
+          // Find the ScaffoldMessenger in the widget tree
+          // and use it to show a SnackBar.
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
         }
       });
     }
@@ -54,11 +73,15 @@ class _SignInState extends State<SignIn> {
   // SignUp(toggle);
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(50), child: appbarmain(context)),
       body: SingleChildScrollView(
         child: Container(
+            width: width,
+            height: height,
             color: Colors.white,
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: Column(
@@ -122,7 +145,9 @@ class _SignInState extends State<SignIn> {
                 Container(
                     alignment: Alignment.centerRight,
                     child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          authMethods.resetpass(email.text);
+                        },
                         child: Text(
                           "Forgot Password?",
                           style: TextStyle(color: Colors.grey[700]),
@@ -153,7 +178,7 @@ class _SignInState extends State<SignIn> {
                   ),
                 ),
                 SizedBox(
-                  height: 7,
+                  height: 20,
                 ),
                 Container(
                   width: 300,

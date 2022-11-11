@@ -48,6 +48,8 @@ class SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery. of(context). size. height;
+    double width = MediaQuery. of(context). size. width;
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(50), child: appbarmain(context)),
@@ -59,6 +61,8 @@ class SignUpState extends State<SignUp> {
             )
           : SingleChildScrollView(
               child: Container(
+                height: height,
+                width: width,
                   color: Colors.white,
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Column(
@@ -160,10 +164,10 @@ class SignUpState extends State<SignUp> {
                           onPressed: () {
                             signmeUP();
                           },
-                        ),
+                        ), 
                       ),
                       SizedBox(
-                        height: 7,
+                        height: 20,
                       ),
                       Container(
                         width: 300,

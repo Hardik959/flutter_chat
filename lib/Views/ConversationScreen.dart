@@ -24,14 +24,15 @@ class _ConversationScreenState extends State<ConversationScreen> {
       builder: (context, snapshot) {
         return snapshot.hasData
             ? ListView.builder(
+                controller: ScrollController(),
+                scrollDirection: Axis.vertical,
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, index) {
                   DocumentSnapshot ds = snapshot.data!.docs[index];
                   return MessageTile(
-                    message: ds["message"],
-                    // sendBy: Constants.myName = ds["sendBy"],
-                    sendByMe: Constants.myName == ds["sendBy"]
-                  );
+                      message: ds["message"],
+                      // sendBy: Constants.myName = ds["sendBy"],
+                      sendByMe: Constants.myName == ds["sendBy"]);
                 })
             : Container(
                 color: Colors.white,
@@ -45,10 +46,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
       Map<String, dynamic> messageMap = {
         "message": message.text,
         "sendBy": Constants.myName,
-         'time': DateTime
-            .now()
-            .millisecondsSinceEpoch,
-        
+        'time': DateTime.now().millisecondsSinceEpoch,
       };
       databaseMethods.addConversationMessages(widget.chatRoomId, messageMap);
       message.text = "";
@@ -87,7 +85,10 @@ class _ConversationScreenState extends State<ConversationScreen> {
       body: Container(
         child: Stack(
           children: [
-            chatMessages(),
+            Container(
+              child: chatMessages(),
+              margin: EdgeInsets.only(bottom: 80),
+            ),
             Container(
               alignment: Alignment.bottomCenter,
               child: Container(
@@ -150,7 +151,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
 
 class MessageTile extends StatelessWidget {
   final String message;
-  final bool sendByMe ;
+  final bool sendByMe;
   // final String sendBy;
 
   MessageTile({required this.message, required this.sendByMe});
